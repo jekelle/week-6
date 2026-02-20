@@ -6,18 +6,12 @@ class Genius:
     BASE_URL = "https://api.genius.com"
 
     def __init__(self, access_token):
-        """
-        Initialize Genius object with an access token.
-        """
         self.access_token = access_token
         self.headers = {
             "Authorization": f"Bearer {self.access_token}"
         }
 
     def _make_request(self, endpoint, params=None):
-        """
-        Internal helper method for making API requests.
-        """
         url = f"{self.BASE_URL}{endpoint}"
         response = requests.get(url, headers=self.headers, params=params)
 
@@ -27,17 +21,10 @@ class Genius:
         return response.json()
 
     def search(self, search_term):
-        """
-        Search Genius API for a term.
-        """
         return self._make_request("/search", params={"q": search_term})
 
     def get_artist(self, search_term):
-        """
-        Retrieve primary artist information from a search term.
-        """
         json_data = self.search(search_term)
-
         hits = json_data["response"]["hits"]
 
         if not hits:
@@ -48,9 +35,6 @@ class Genius:
         return self._make_request(f"/artists/{artist_id}")
 
     def get_artists(self, search_terms):
-        """
-        Retrieve multiple artists and return as a DataFrame.
-        """
         rows = []
 
         for term in search_terms:
