@@ -3,7 +3,7 @@ import os
 from multiprocessing import Pool
 from time import sleep
 
-# user-installed
+
 import pandas as pd
 from tqdm import tqdm
 from numpy.random import uniform
@@ -32,7 +32,7 @@ def genius_to_df(search_term, n_results_per_term=10,
     hits = [hit['result'] for hit in json_data]
     df = pd.DataFrame(hits)
 
-    # expand dictionary elements
+  
     df_stats = df['stats'].apply(pd.Series)
     df_stats.rename(columns={c:'stat_' + c for c in df_stats.columns},
                     inplace=True)
